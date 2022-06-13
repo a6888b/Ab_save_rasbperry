@@ -7,10 +7,15 @@ def start_socket(host: str, port: int = 2222):
         client.connect((host, port))
     except socket.gaierror:
         return False
-
+    except ConnectionRefusedError: 
+        return False 
+    
     return client
 
 
 def send_file(file: str, conn: socket.socket):
     with open(file, 'rb') as f:
-        conn.sendfile(f)
+        try: 
+            conn.sendfile(f)
+        except BrokenPipeError: 
+            return False 
