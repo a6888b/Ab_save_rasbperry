@@ -9,3 +9,6 @@ def start_socket(host: str, port: int=2222):
     
     return client 
      
+def send_file(file: str, conn: socket.socket): 
+    with open(file, 'rb') as f: 
+        conn.sendfile(f)
