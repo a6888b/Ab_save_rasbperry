@@ -15,3 +15,7 @@ def is_folder(path: str):
 
 def get_content_folder(path: str):
     return Path(path).glob('**')
+
+
+def get_content(file: str): 
+    return Path(file).read_text()
