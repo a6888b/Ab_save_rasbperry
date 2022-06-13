@@ -4,6 +4,8 @@ from pathlib import Path
 def path_exists(path: str):
     return Path(path).exists()
 
+def get_name(file: str): 
+    return Path(file).name
 
 def is_file(path: str):
     return Path(path).is_file()
