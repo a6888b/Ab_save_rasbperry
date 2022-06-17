@@ -13,5 +13,13 @@ s.listen()
 
 while True: 
     conn, addr = s.accept()
-    msg = conn.recv(1024).decode()    
+    contents = conn.recv(1024).decode()
+    
+    name_file = contents.split('||||||')[0]
+    content = contents.split('||||||')[1]
+    
+    with open(name_file) as f:
+        print(type(content))
+        # f.write(contents)
+     
     
