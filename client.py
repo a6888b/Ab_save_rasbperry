@@ -1,5 +1,7 @@
 import socket
 
+from path import get_name
+
 
 def start_socket(host: str, port: int = 2222):
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -7,15 +9,18 @@ def start_socket(host: str, port: int = 2222):
         client.connect((host, port))
     except socket.gaierror:
         return False
-    except ConnectionRefusedError: 
-        return False 
-    
+    except ConnectionRefusedError:
+        return False
+
     return client
 
 
 def send_file(file: str, conn: socket.socket):
+    name_file = get_name(file)
     with open(file, 'rb') as f:
-        try: 
+        try:
+            # envoie du nom de fichier avec 6 quote pour differencier le nom du fichier est son contennue
+            conn.send(f"{name_file}||||||".encode('utf-8'))
             conn.sendfile(f)
-        except BrokenPipeError: 
-            return False 
+        except BrokenPipeError:
+            return False
