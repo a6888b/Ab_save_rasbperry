@@ -23,3 +23,5 @@ def send_file(file: str, conn: socket.socket):
             conn.sendall(f"{name_file}||||||{f.read()}".encode('utf-8'))
         except BrokenPipeError:
             return False
+        except ConnectionResetError:
+            exit('stop')
