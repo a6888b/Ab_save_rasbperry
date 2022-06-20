@@ -10,6 +10,10 @@ while not client is False:
     path_or_file = input(
         "Entrez le chemin d'accées relatife a votre fichier/dossier: "
     )
+    if path_or_file in constant.ARRAY_WAY_QUIT: # si le client entrez une commande pour stopper la connexion
+        client.close()
+        exit()
+        
     if pt.path_exists(path_or_file):
         if pt.is_file(path_or_file):
             cn.send_file(path_or_file, client)
