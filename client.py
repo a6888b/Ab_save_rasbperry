@@ -1,5 +1,6 @@
 import socket
 
+import constant
 from path import get_name
 
 
@@ -31,7 +32,7 @@ def send_name_folder(path, conn: socket.socket):
     name = get_name(path)
 
     try:
-        conn.sendall(f'name_folder:{name}'.encode('utf8'))
+        conn.sendall(f'{constant.NAME_FOLDER_VARIABLE}:{name}'.encode('utf8'))
     except BrokenPipeError:
         return False
     except ConnectionResetError:
