@@ -21,7 +21,7 @@ def send_file(file: str, conn: socket.socket):
     with open(file) as f:
         try:
             # envoie du nom de fichier avec 6 quote pour differencier le nom du fichier est son contennue
-            conn.sendall(f"{name_file}||||||{f.read()}".encode('utf-8'))
+            conn.sendall(f"{name_file}{constant.SEPARATOR}{f.read()}".encode('utf-8'))
         except BrokenPipeError:
             return False
         except ConnectionResetError:
