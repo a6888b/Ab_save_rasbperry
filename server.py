@@ -1,6 +1,7 @@
+import os
 import socket
-import constant 
 
+import constant
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try: 
@@ -15,11 +16,22 @@ while True:
     conn, addr = s.accept()
     contents = conn.recv(1024).decode()
     
-    name_file = contents.split('||||||')[0] # recupere le nom du fichier 
-    lines = contents.split('||||||')[1].split('\n') # recupere le contenue du fichier 
+    if constant.NAME_FOLDER_VARIABLE in contents: # si c'est un nom de dossier qui est envoyez 
+        folder = contents.split(constant.NAME_FOLDER_VARIABLE)[0]
+        
+        os.mkdir(folder) # creation dossier 
+        os.chdir(folder) # changement repart actuelle par le nouveau creer 
+        
+          
+        
+    else:     
+        name_file = contents.split('||||||')[0] # recupere le nom du fichier 
+        lines = contents.split('||||||')[1].split('\n') # recupere le contenue du fichier 
     
-    with open(name_file, 'w') as f:
-        for line in lines: 
-            f.write(line)
+    
+    
+        with open(name_file, 'w') as f:
+            for line in lines: 
+                f.write(line)
      
     
