@@ -29,9 +29,8 @@ while True:
         os.chdir(folder)  # changement repart actuelle par le nouveau creer
 
     else:
-        name_file = contents.split('||||||')[0]  # recupere le nom du fichier
-        lines = contents.split('||||||')[1].split(
-            '\n')  # recupere le contenue du fichier
+        name_file = contents.split(constant.SEPARATOR)[0]  # recupere le nom du fichier
+        lines = contents.split(constant.SEPARATOR)[1].split('\n')  # recupere le contenue du fichier
 
         with open(name_file, 'w') as f:
             for line in lines:
