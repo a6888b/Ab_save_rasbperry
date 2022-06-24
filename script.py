@@ -7,15 +7,14 @@ import constant
 client = cn.start_socket(constant.HOST, constant.PORT)
 
 
-def recursive_folder(conn, element: str): 
+def recursive_folder(conn, element: str):
     cn.send_name_folder(element, conn)
     for file in pt.get_content_folder(element):
         if pt.is_file(file):
             cn.send_file(str(file), conn)
-        elif pt.is_folder(file): 
+        elif pt.is_folder(file):
             recursive_folder(conn, element)
-            
-    
+
 
 while not client is False:
     print('Connexion effectuer')
