@@ -9,8 +9,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
     s.bind(('', constant.PORT))  # ouvre le socket sur cette la machine
 except OSError:
-    print('Attendez que le serveur s\' eteigne completement')
-    exit()
+    exit('Attendez que le serveur s\' eteigne completement')
 
 s.listen()
 
