@@ -25,6 +25,7 @@ def send_file(file: str, conn: socket.socket):
         except BrokenPipeError:
             return False
         except ConnectionResetError:
+            conn.close()
             exit('stop')
 
 
@@ -36,4 +37,5 @@ def send_name_folder(path, conn: socket.socket):
     except BrokenPipeError:
         return False
     except ConnectionResetError:
+        conn.close()
         exit('stop')
