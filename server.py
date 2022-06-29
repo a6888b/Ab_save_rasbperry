@@ -22,10 +22,15 @@ while True:
 
     if constant.NAME_FOLDER_VARIABLE in contents:  # si c'est un nom de dossier qui est envoyez
         folder_change = True 
-        folder = contents.split(constant.NAME_FOLDER_VARIABLE)[0]
+        folder = contents.split(constant.NAME_FOLDER_VARIABLE)[1]
 
-        os.mkdir(folder)  # creation dossier
-        os.chdir(folder)  # changement repart actuelle par le nouveau creer
+        try: 
+            os.mkdir(folder)  # creation dossier
+        except FileExistsError: 
+            pass 
+        
+        finally: 
+            os.chdir(folder)  # changement repart actuelle par le nouveau creer
 
     else:
         name_file = contents.split(constant.SEPARATOR)[0]  # recupere le nom du fichier
