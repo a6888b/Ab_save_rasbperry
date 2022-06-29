@@ -16,12 +16,9 @@ while not client is False:
         exit()
 
     if pt.path_exists(path_or_file):
-        if pt.is_file(path_or_file):
-            cn.send_file(path_or_file, client)
+        for element in pt.recursive_folder(path_or_file): 
+            if pt.is_file(element):
+                cn.send_file(element, client)
 
-        elif pt.is_folder(path_or_file):
-            cn.send_name_folder(path_or_file, client)
-
-            for file in pt.get_content_folder(path_or_file):
-                if pt.is_file(file):
-                    cn.send_file(str(file), client)
+            elif pt.is_folder(element):
+                cn.send_name_folder(element, client)

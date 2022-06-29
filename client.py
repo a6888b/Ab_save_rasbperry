@@ -21,10 +21,11 @@ def send_file(file: str, conn: socket.socket):
     with open(file) as f:
         try:
             # envoie du nom de fichier avec 6 quote pour differencier le nom du fichier est son contennue
-            conn.sendall(f"{name_file}||||||{f.read()}".encode('utf-8'))
+            conn.sendall(f"{name_file + constant.SEPARATOR}{f.read()}".encode('utf-8'))
         except BrokenPipeError:
             return False
         except ConnectionResetError:
+            conn.close()
             exit('stop')
 
 
@@ -32,8 +33,9 @@ def send_name_folder(path, conn: socket.socket):
     name = get_name(path)
 
     try:
-        conn.sendall(f'{constant.NAME_FOLDER_VARIABLE}:{name}'.encode('utf8'))
+        conn.sendall(f'{constant.NAME_FOLDER_VARIABLE + name}'.encode('utf8'))
     except BrokenPipeError:
         return False
     except ConnectionResetError:
+        conn.close()
         exit('stop')

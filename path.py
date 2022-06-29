@@ -23,3 +23,18 @@ def get_content_folder(path: str):
 
 def get_content(file: str):
     return Path(file).read_text()
+
+
+def recursive_folder(path):
+    if isinstance(path, str): 
+        path = Path(path)
+    
+    files = []
+    for f in path.iterdir(): 
+        if f.is_dir(): 
+            files.append(recursive_folder(f))
+        else: 
+            files.append(f)
+    
+    return files  
+    

@@ -9,8 +9,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
     s.bind(('', constant.PORT))  # ouvre le socket sur cette la machine
 except OSError:
-    print('Attendez que le serveur s\' eteigne completement')
-    exit()
+    exit('Attendez que le serveur s\' eteigne completement')
 
 s.listen()
 
@@ -23,15 +22,19 @@ while True:
 
     if constant.NAME_FOLDER_VARIABLE in contents:  # si c'est un nom de dossier qui est envoyez
         folder_change = True 
-        folder = contents.split(constant.NAME_FOLDER_VARIABLE)[0]
+        folder = contents.split(constant.NAME_FOLDER_VARIABLE)[1]
 
-        os.mkdir(folder)  # creation dossier
-        os.chdir(folder)  # changement repart actuelle par le nouveau creer
+        try: 
+            os.mkdir(folder)  # creation dossier
+        except FileExistsError: 
+            pass 
+        
+        finally: 
+            os.chdir(folder)  # changement repart actuelle par le nouveau creer
 
     else:
-        name_file = contents.split('||||||')[0]  # recupere le nom du fichier
-        lines = contents.split('||||||')[1].split(
-            '\n')  # recupere le contenue du fichier
+        name_file = contents.split(constant.SEPARATOR)[0]  # recupere le nom du fichier
+        lines = contents.split(constant.SEPARATOR)[1].split('\n')  # recupere le contenue du fichier
 
         with open(name_file, 'w') as f:
             for line in lines:
